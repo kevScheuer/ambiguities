@@ -15,7 +15,6 @@ import argparse
 import os
 import pathlib
 import pwd
-import shutil
 import subprocess
 import time
 
@@ -34,7 +33,7 @@ def main(
     phase_reference: str,
     ds_option: str,
     m0_strengths: list,
-    ratios: float,
+    ratios: list,
     num_rand_fits: int,
     reaction: str,
     n_gpus: int,
@@ -360,7 +359,7 @@ if __name__ == "__main__":
         "--gpu",
         nargs=2,
         default=["0", ""],
-        choices=["1", "2", "3", "4", "T4", "TitanRTX", "A800"],
+        choices=["1", "2", "3", "4", "T4", "TitanRTX", "A100", "A800"],
         metavar=("#GPUs", "CARD"),
         help="set # of GPUs to use for a card. Default assumes only CPU fits",
     )

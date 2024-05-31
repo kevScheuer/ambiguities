@@ -26,5 +26,6 @@
     ],
     "files.associations": {
         "plot_plotter.C": "cpp"
-    }
+    },
+    "python.analysis.typeCheckingMode": "basic"
 }

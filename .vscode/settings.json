@@ -1,0 +1,30 @@
+{
+    "[python]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"            
+        }
+    },
+    "C_Cpp.default.includePath": [
+        "/group/halld/Software/builds/Linux_CentOS7.7-x86_64-gcc4.8.5/root/root-6.24.04/include",      
+        "/work/halld/kscheuer/my_build/AmpTools/AmpTools/",
+        "${default}",
+        "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5",
+        "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/x86_64-redhat-linux",
+        "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/backward",
+        "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include",
+        "/usr/local/include",
+        "/usr/include"
+      ],
+    "C_Cpp.errorSquiggles": "enabled",
+    "cSpell.words": [
+        "neutralb",
+        "phasepace"
+    ],
+    "files.associations": {
+        "plot_plotter.C": "cpp"
+    }
+}

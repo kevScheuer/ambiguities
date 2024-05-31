@@ -1,0 +1,9 @@
+#lookup all the typical gitignore files. Maybe check PyAmpTools. Def want to ignore .root
+# and .csv files 
+**/*.root
+**/*.csv
+*.so
+
+__pycache__/
+.ipynb_checkpoints
+.conda

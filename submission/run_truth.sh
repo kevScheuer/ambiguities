@@ -22,6 +22,14 @@ which mpirun
 pwd
 ls -al
 
+echo -e "\n\n\n\n##### GENERATING SIGNAL EVENTS #####\n\n"
+
+# generate 10k events of signal MC. "_0" is artifact of config writer
+gen_vec_ps -c gen_signal.cfg\
+ -o anglesOmegaPiAmplitude_0.root\
+ -l 1.200 -u 1.2500 -tmin 0.4 -tmax 0.5 -a 8.2 -b 8.8\
+ -n 10000
+
 fit -c truth.cfg
 
 if ! [ -f "truth.fit" ]; then

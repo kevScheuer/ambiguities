@@ -1,12 +1,13 @@
 """ Submits jobs via slurm to ifarm GPU nodes combined with mpi 
 
 This file takes a set of user inputs, accessed using "-h" or "--help" from the terminal,
-and performs all the steps necessary to create and run all the MC Input-Output .fit 
-result files.
+and performs all the steps necessary to to create Monte Carlo Input Output fit results.
 
 SLURM INFO (https://scicomp.jlab.org/scicomp/slurmJob/slurmInfo)
     
 Potential additions, may be unnecessary:
+    all angles*.root are reaction dependently named. Either add reaction flag to it
+        or remove it
     custom TEM binning in run_mc
     custom polarization fraction in cfg files (currently fixed to 35%)
 """
@@ -57,13 +58,12 @@ def main(
             " to create file and exiting. Please re-attempt fits once job completes"
         )
         os.system(f"cp -f {CODE_DIR}beam.config  {reaction_dir}")
-        # TODO: gen_phasespace should be edited to include "reaction", currently
-        # hardcoded to be omegapi
+        pathlib.Path(f"{reaction_dir}log/").mkdir(parents=True, exist_ok=True)
         phasespace_command = " ".join(
             (
                 f"source {CODE_DIR}setup_gluex.sh\ngen_vec_ps -c",
                 f"{CODE_DIR}gen_phasespace.cfg",
-                f"-o {reaction_dir}anglesOmegaPiPhaseSpace.root",
+                f"-o anglesOmegaPiPhaseSpace.root",
                 "-l 1.200 -u 1.2500",
                 "-tmin 0.4 -tmax 0.5",
                 "-a 8.2 -b 8.8",
@@ -110,7 +110,9 @@ def main(
 
             for i in range(1):  # for 100 independent datasets
                 # start by making necessary dirs
-                running_dir = f"{waveset_str}/m0-{m0}_ratio-{ratio}/dataset_{i}/"
+                running_dir = (
+                    f"{reaction_dir}{waveset_str}/m0-{m0}_ratio-{ratio}/dataset_{i}/"
+                )
                 data_out_dir = running_dir.replace("TMPDIR/", "")
                 log_dir = running_dir + "log/"
 
@@ -176,7 +178,9 @@ def main(
 
             # now that all 100 dataset jobs are submitted, lets do a truth fit job
             truth_name = "_".join((reaction, f"m0-{m0}", f"ratio-{ratio}", "truth"))
-            truth_running_dir = f"{waveset_str}/m0-{m0}_ratio-{ratio}/truth"
+            truth_running_dir = (
+                f"{reaction_dir}{waveset_str}/m0-{m0}_ratio-{ratio}/truth/"
+            )
             truth_out_dir = truth_running_dir.replace("TMPDIR/", "")
             truth_log_dir = truth_running_dir + "log/"
             truth_command = " ".join(
@@ -199,6 +203,7 @@ def main(
                 f"cp -f {reaction_dir}anglesOmegaPiPhaseSpace.root"
                 f" {truth_running_dir}anglesOmegaPiPhaseSpaceAcc.root"
             )
+            os.system(f"cp -f {CODE_DIR}gen_signal.cfg  {truth_running_dir}")
 
             submit_slurm_job(
                 truth_name,

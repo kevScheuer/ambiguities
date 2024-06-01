@@ -108,7 +108,7 @@ def main(
             # make gen_signal.cfg and truth.cfg for this bin
             write_signal_and_truth_config.main(float(m0), float(ratio), phase_reference)
 
-            for i in range(1):  # for 100 independent datasets
+            for i in range(100):  # for 100 independent datasets
                 # start by making necessary dirs
                 running_dir = (
                     f"{reaction_dir}{waveset_str}/m0-{m0}_ratio-{ratio}/dataset_{i}/"
@@ -224,7 +224,7 @@ def submit_slurm_job(
     log_dir: str,
     gpu_type: str,
     n_gpus: int,
-    time_limit: str = "1:00:00",
+    time_limit: str = "0:30:00",
     mem_per_cpu: str = "5000M",
 ) -> None:
     """Submit a slurm job to the ifarm using an mpi+gpu build

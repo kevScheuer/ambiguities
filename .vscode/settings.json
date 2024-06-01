@@ -25,7 +25,8 @@
         "phasepace"
     ],
     "files.associations": {
-        "plot_plotter.C": "cpp"
+        "plot_plotter.C": "cpp",
+        "fitsToCsv.C": "cpp"
     },
     "python.analysis.typeCheckingMode": "basic"
 }

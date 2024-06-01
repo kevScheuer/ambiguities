@@ -28,7 +28,7 @@ POL_DICT = {
 
 def main(
     waveset_args: list,
-    phase_reference: str,
+    phase_ref: str,
     is_phaselock: bool,
     ds_option: str,
     frame: str,
@@ -45,7 +45,7 @@ def main(
     # the necessary info for each wave/bw
     waves, breit_wigners = get_waves_and_breit_wigners(waveset_args)
 
-    if phase_reference:
+    if phase_ref:
         # check that the reference wave chosen is actually in the waveset
         is_wave_found = False
         for wave in waves:
@@ -54,11 +54,11 @@ def main(
             for m in wave["m"]:
                 for l in wave["l"]:
                     jpml = j + p + int_to_char(m) + int_to_char(l, True)
-                    if phase_reference == jpml:
+                    if phase_ref == jpml:
                         is_wave_found = True
                         phase_reference = wave
         if not is_wave_found:
-            raise ValueError(f"{phase_reference} is not in waveset")
+            raise ValueError(f"{phase_ref} is not in waveset")
     else:
         phase_reference = waves[0]
 

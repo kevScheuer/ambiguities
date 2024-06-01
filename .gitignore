@@ -1,9 +1,18 @@
-#lookup all the typical gitignore files. Maybe check PyAmpTools. Def want to ignore .root
-# and .csv files 
+# data and changing config files
 **/*.root
 **/*.csv
-*.so
+truth.cfg
+gen_signal.cfg
+fit.cfg
 
+# data output
+*.pdf
+
+
+# caches
 __pycache__/
 .ipynb_checkpoints
 .conda
+
+# other
+*.so
